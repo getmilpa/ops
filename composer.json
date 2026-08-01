@@ -1,17 +1,27 @@
 {
   "name": "milpa/ops",
   "description": "The Milpa system's metabolism: security scanning, backup/restore, scheduled maintenance and bootstrap \u2014 the operations any Milpa app gets for free. Domain-blind and zero-Doctrine (ADR-0023).",
+  "keywords": [
+    "php",
+    "milpa",
+    "framework",
+    "operations",
+    "security-scanning",
+    "backup",
+    "cron",
+    "deployment"
+  ],
   "type": "library",
   "license": "Apache-2.0",
   "authors": [
     {
       "name": "Rodrigo Vicente - TeamX Agency",
-      "homepage": "https://teamx.agency"
+      "homepage": "https://x.com/rodrigoteamx"
     }
   ],
   "require": {
     "php": ">=8.3",
-    "milpa/core": "^0.6",
+    "milpa/core": "^0.6.2 || ^0.7",
     "psr/log": "^3"
   },
   "require-dev": {
