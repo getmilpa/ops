@@ -140,4 +140,34 @@ final class CronRunnerTest extends TestCase
         self::assertArrayHasKey('seconds', $array['results'][0]);
         self::assertArrayHasKey('error', $array['results'][0]);
     }
+
+    /**
+     * A task that throws does not stop the ones AFTER it — the promise this runner's docblock makes and
+     * that nothing measured until now.
+     *
+     * Every existing test that registers a thrower registers it LAST among the due tasks, so a runner
+     * that stopped dead on the first failure passed all of them. Measured: mutating `run()` to
+     * `if (!$r->ok) { break; }` left 33 of 33 green. A promise no test can falsify is a comment.
+     *
+     * The order is the whole test: the thrower goes FIRST.
+     */
+    public function testATaskThatThrowsDoesNotStopTheOnesAfterIt(): void
+    {
+        $ranAfter = false;
+
+        $registry = new CronRegistry();
+        $registry->register(new TaskDefinition('throwing-task', '* * * * *', static function (): void {
+            throw new RuntimeException('boom');
+        }));
+        $registry->register(new TaskDefinition('later-task', '* * * * *', static function () use (&$ranAfter): void {
+            $ranAfter = true;
+        }));
+
+        $report = (new CronRunner($registry))->run(new DateTimeImmutable('2026-07-21 10:00:00'));
+
+        self::assertTrue($ranAfter, 'the task registered after the thrower never ran — the runner stopped');
+        self::assertCount(2, $report->results, 'both tasks are reported, the failure included');
+        self::assertFalse($report->results[0]->ok, 'the thrower is reported as failed');
+        self::assertTrue($report->results[1]->ok, 'and the one after it as run');
+    }
 }

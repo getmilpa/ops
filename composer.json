@@ -12,6 +12,7 @@
     "deployment"
   ],
   "type": "library",
+  "abandoned": true,
   "license": "Apache-2.0",
   "authors": [
     {
