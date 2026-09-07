@@ -1,29 +1,24 @@
 # Upgrading
 
-## 0.3.0 — this package is abandoned
+## 0.4.0 — the abandonment of 0.3.0 is reversed
 
-`milpa/ops` is marked `abandoned`. It is not deleted and its code still works: what changes is that the
-framework stops OFFERING it as a capability.
+`milpa/ops` was marked `abandoned` in 0.3.0. **That was wrong, and this undoes it.**
 
-**The measurement, not an opinion about the code.** The cron engine here is correct and its 34 tests pass in
-0.02 s. That was never the question — demand was:
+The measurement behind it was about the CRON engine, and it still holds: nothing in the framework implements
+`CronProviderInterface`, nothing requires this package, and the family has never scheduled anything. What the
+measurement could not see is what the package is FOR.
 
-- **Zero implementors of `CronProviderInterface`**, ever, across the framework's 39 packages. The only class
-  that ever implemented it was a test fake in an archived monorepo.
-- **Zero packages require `milpa/ops`.** The apps that install it are lab apps that install everything.
-- **Zero scheduled triggers** in the family's 161 CI workflows. This house has never scheduled anything.
-- Nothing in the framework's roadmap, promises or work queue names periodic work.
-- And the one place with the best claim to a cron — session expiry — **rejected one in writing**: *"it goes here
-  and not in a cron because the moment it matters is this one. A nightly sweep would kill sessions nobody was
-  watching, and leave alive the ones that were — the opposite of what is needed."*
+This is not a cron engine with extras. It is an operations toolkit for an agent: `Deploy` runs an ordered,
+fail-fast step sequence whose steps own their own effects (`docker compose`, `coa` commands, HTTP probes);
+`Security` scans for secrets, parses advisories and checks permissions; `Backup` catalogues and archives;
+`Bootstrap` runs phased start-up. **The purpose is that an agent can operate a deployment** — and a purpose
+lives with whoever holds the intent, not in a usage count.
 
-The rest of the package is in the same state: all four contracts and nine classes are unwired. Adopting the
-cron would have carried Security, Backup, Deploy and Bootstrap through the door with it, to serve zero named
-tasks.
+Nothing about the code changed between 0.3.0 and 0.4.0. `abandoned` was metadata, and it is gone.
 
-**Cheap to finish is not a need.** A built-and-unwired piece is debt that looks like capability precisely when
-it is cheap and pretty (greenhouse `decisions/0213`, `decisions/0215` F6).
+**What DOES stand from 0.3.0**, and is kept:
 
-**If you were using it:** nothing breaks. `abandoned` is metadata — composer will tell you the package is no
-longer maintained here. The engine is preserved, citable, and now carries the one test it never had: that a task
-which throws does not stop the ones after it.
+- The cron engine has no consumer today. That is a fact about the cron, not a verdict on this package.
+- `CronRunner` now carries the test it never had: a task that throws does not stop the ones after it. Every
+  previous test registered its thrower LAST, so a runner that stopped dead on the first failure passed all 33 —
+  measured by mutating `run()` with a `break`. A promise no test can falsify is a comment.
