@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/getmilpa/ops/compare/v0.2.1...v0.3.0) (2026-09-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* milpa/ops is marked abandoned. Nothing is deleted and the code still works; the framework stops offering it as a capability. See UPGRADING.md.
+
+### Features
+
+* the runner keeps its promise, and this package stops offering itself ([#8](https://github.com/getmilpa/ops/issues/8)) ([9979729](https://github.com/getmilpa/ops/commit/997972995ae8febf92579e7bf28e8e2d0d2d8061))
+
 ## [0.1.1](https://github.com/getmilpa/ops/compare/v0.1.0...v0.1.1) (2026-08-01)
 
 
