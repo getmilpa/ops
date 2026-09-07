@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/getmilpa/ops/compare/v0.3.0...v0.3.1) (2026-09-07)
+
+
+### Reverts
+
+* milpa/ops is not abandoned ([#10](https://github.com/getmilpa/ops/issues/10)) ([950167a](https://github.com/getmilpa/ops/commit/950167a146349b64ed64807b51e040d6e685415d))
+
 ## [0.3.0](https://github.com/getmilpa/ops/compare/v0.2.1...v0.3.0) (2026-09-07)
 
 
