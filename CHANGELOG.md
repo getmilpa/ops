@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/getmilpa/ops/compare/v0.3.1...v0.3.2) (2026-09-09)
+
+
+### Bug Fixes
+
+* milpa/core is a dev-time tool here, not a runtime dependency ([#12](https://github.com/getmilpa/ops/issues/12)) ([4d3f076](https://github.com/getmilpa/ops/commit/4d3f07622c28f3185e249576de8746b8c1d034da))
+
 ## [0.3.1](https://github.com/getmilpa/ops/compare/v0.3.0...v0.3.1) (2026-09-07)
 
 
